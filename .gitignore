@@ -1,0 +1,5 @@
+data/*.gpkg
+data/*.geojson
+data/*.tmp
+data/*.tmp-shm
+data/*.tmp-wal
