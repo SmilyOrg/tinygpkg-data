@@ -68,6 +68,10 @@ See [Parameters](#parameters) for details on the parameters used for each varian
 
 
 ### ne_110m_admin_0_countries
+
+See [Parameters](#parameters) for what each variant means and
+[Datasets](#datasets) for details on the datasets themselves.
+
 | Variant | Size |  world |  europe |  africa |  usa |  japan | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
 | [twkb_p3_s3](data/ne_110m_admin_0_countries_twkb_p3_s3.gpkg) | 352 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_world.png" alt="ne_110m_admin_0_countries twkb_p3_s3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_europe.png" alt="ne_110m_admin_0_countries twkb_p3_s3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_africa.png" alt="ne_110m_admin_0_countries twkb_p3_s3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_usa.png" alt="ne_110m_admin_0_countries twkb_p3_s3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_twkb_p3_s3_japan.png" alt="ne_110m_admin_0_countries twkb_p3_s3 japan"></a> |
@@ -84,6 +88,10 @@ See [Parameters](#parameters) for details on the parameters used for each varian
 
 
 ### ne_10m_admin_0_countries
+
+See [Parameters](#parameters) for what each variant means and
+[Datasets](#datasets) for details on the datasets themselves.
+
 | Variant | Size |  world |  europe |  africa |  usa |  japan | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
 | [twkb_p3_s3](data/ne_10m_admin_0_countries_twkb_p3_s3.gpkg) | 921 KB | <a href="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_world.png"><img src="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_world.png" alt="ne_10m_admin_0_countries twkb_p3_s3 world"></a> |<a href="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_europe.png"><img src="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_europe.png" alt="ne_10m_admin_0_countries twkb_p3_s3 europe"></a> |<a href="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_africa.png"><img src="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_africa.png" alt="ne_10m_admin_0_countries twkb_p3_s3 africa"></a> |<a href="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_usa.png"><img src="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_usa.png" alt="ne_10m_admin_0_countries twkb_p3_s3 usa"></a> |<a href="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_japan.png"><img src="data/ne_10m_admin_0_countries_roundtrip_twkb_p3_s3_japan.png" alt="ne_10m_admin_0_countries twkb_p3_s3 japan"></a> |
@@ -100,6 +108,10 @@ See [Parameters](#parameters) for details on the parameters used for each varian
 
 
 ### ne_10m_urban_areas_landscan
+
+See [Parameters](#parameters) for what each variant means and
+[Datasets](#datasets) for details on the datasets themselves.
+
 | Variant | Size |  world |  berlin |  nyc |  tokyo |  ljubljana | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
 | [twkb_p3_s3](data/ne_10m_urban_areas_landscan_twkb_p3_s3.gpkg) | 5599 KB | <a href="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_world.png"><img src="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_world.png" alt="ne_10m_urban_areas_landscan twkb_p3_s3 world"></a> |<a href="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_berlin.png"><img src="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_berlin.png" alt="ne_10m_urban_areas_landscan twkb_p3_s3 berlin"></a> |<a href="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_nyc.png"><img src="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_nyc.png" alt="ne_10m_urban_areas_landscan twkb_p3_s3 nyc"></a> |<a href="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_tokyo.png"><img src="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_tokyo.png" alt="ne_10m_urban_areas_landscan twkb_p3_s3 tokyo"></a> |<a href="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_ljubljana.png"><img src="data/ne_10m_urban_areas_landscan_roundtrip_twkb_p3_s3_ljubljana.png" alt="ne_10m_urban_areas_landscan twkb_p3_s3 ljubljana"></a> |
@@ -116,6 +128,10 @@ See [Parameters](#parameters) for details on the parameters used for each varian
 
 
 ### geoBoundariesCGAZ_ADM2
+
+See [Parameters](#parameters) for what each variant means and
+[Datasets](#datasets) for details on the datasets themselves.
+
 | Variant | Size |  world |  europe |  africa |  usa |  japan | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
 | [twkb_p3_s3](data/geoBoundariesCGAZ_ADM2_twkb_p3_s3.gpkg) | 42979 KB | <a href="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_world.png"><img src="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_world.png" alt="geoBoundariesCGAZ_ADM2 twkb_p3_s3 world"></a> |<a href="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_europe.png"><img src="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_europe.png" alt="geoBoundariesCGAZ_ADM2 twkb_p3_s3 europe"></a> |<a href="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_africa.png"><img src="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_africa.png" alt="geoBoundariesCGAZ_ADM2 twkb_p3_s3 africa"></a> |<a href="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_usa.png"><img src="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_usa.png" alt="geoBoundariesCGAZ_ADM2 twkb_p3_s3 usa"></a> |<a href="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_japan.png"><img src="data/geoBoundariesCGAZ_ADM2_roundtrip_twkb_p3_s3_japan.png" alt="geoBoundariesCGAZ_ADM2 twkb_p3_s3 japan"></a> |
@@ -132,6 +148,10 @@ See [Parameters](#parameters) for details on the parameters used for each varian
 
 
 ### geoBoundariesCGAZ_ADM0
+
+See [Parameters](#parameters) for what each variant means and
+[Datasets](#datasets) for details on the datasets themselves.
+
 | Variant | Size |  world |  europe |  africa |  usa |  japan | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
 | [twkb_p3_s3](data/geoBoundariesCGAZ_ADM0_twkb_p3_s3.gpkg) | 11522 KB | <a href="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_world.png"><img src="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_world.png" alt="geoBoundariesCGAZ_ADM0 twkb_p3_s3 world"></a> |<a href="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_europe.png"><img src="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_europe.png" alt="geoBoundariesCGAZ_ADM0 twkb_p3_s3 europe"></a> |<a href="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_africa.png"><img src="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_africa.png" alt="geoBoundariesCGAZ_ADM0 twkb_p3_s3 africa"></a> |<a href="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_usa.png"><img src="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_usa.png" alt="geoBoundariesCGAZ_ADM0 twkb_p3_s3 usa"></a> |<a href="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_japan.png"><img src="data/geoBoundariesCGAZ_ADM0_roundtrip_twkb_p3_s3_japan.png" alt="geoBoundariesCGAZ_ADM0 twkb_p3_s3 japan"></a> |
