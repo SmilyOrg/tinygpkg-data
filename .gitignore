@@ -3,3 +3,6 @@ data/*.geojson
 data/*.tmp
 data/*.tmp-shm
 data/*.tmp-wal
+simplify*
+tgpkg*
+.tup

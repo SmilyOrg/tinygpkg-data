@@ -1,0 +1,42 @@
+NATURAL_EARTH_URL=https://raw.githubusercontent.com/nvkelso/natural-earth-vector/117488dc884bad03366ff727eca013e434615127/geojson
+
+# Convert any GDAL supported format to a valid GeoPackage gpkg file
+!makevalid = |> cat %f | docker run --rm -i -w / ghcr.io/osgeo/gdal:alpine-normal-3.7.1 sh -c "cp /dev/stdin %b && ogr2ogr -makevalid -f "GPKG" out.gpkg %b && cat out.gpkg" > %o |> %B_makevalid.gpkg
+
+# Required for Go builds
+export GOPATH
+export GOCACHE
+export LocalAppData
+
+# Executable extension
+ifeq (@(TUP_PLATFORM),win32)
+  EXE = .exe
+else
+  EXE =
+endif
+
+# Build simplify tool
+simplify=simplify$(EXE)
+: |> go build ./cmd/simplify |> $(simplify) ^.*/go-build/.*
+
+# Build tgpkg tool (compress to tinywkb and back)
+tgpkg=tgpkg$(EXE)
+: |> go build ./cmd/tgpkg |> $(tgpkg) ^.*/go-build/.*
+
+# Download Natural Earth datasets
+: |> curl $(NATURAL_EARTH_URL)/ne_110m_admin_0_countries.geojson -o %o |> data/ne_110m_admin_0_countries.geojson
+# : |> curl $(NATURAL_EARTH_URL)/ne_10m_admin_0_countries.geojson -o %o |> data/ne_10m_admin_0_countries.geojson
+# : |> curl $(NATURAL_EARTH_URL)/ne_10m_urban_areas_landscan.geojson -o %o |> data/ne_10m_urban_areas_landscan.geojson
+
+# Convert to GeoPackage
+: foreach data/ne_*.geojson |> !makevalid |> data/%B_makevalid.gpkg
+
+# Build simplified versions
+simplify_minpoints=20
+include Tupfile-simplify.lua
+
+# Build tiny wkb (twkb) compressed versions
+include Tupfile-compress.lua
+
+# Build preview images
+include Tupfile-preview.lua
