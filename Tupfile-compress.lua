@@ -1,3 +1,5 @@
+tup.include("Tupfile-consts.lua")
+
 files = tup.glob("data/*_s?.gpkg")
 output_dir = "data/"
 minprecxy = 3
@@ -7,12 +9,13 @@ for i = 1, #files do
   fullbase = tup.base(input)
   base = fullbase:sub(1, -4)
   suffix = fullbase:sub(-3, -1)
+  sqltable = basetotablemap[base] or base
   
   -- Compress to TWKB
   inputs = {"$(tgpkg)", input}
   output = output_dir .. fullbase .. "_twkb_p" .. minprecxy .. ".gpkg"
   cmd = '^s^ $(tgpkg) ' ..
-  ' -table ' .. base ..
+  ' -table ' .. table_from_base(base) ..
   ' -minprecxy ' .. minprecxy ..
   ' -o ' .. output ..
   ' compress ' .. input
@@ -25,7 +28,7 @@ for i = 1, #files do
   inputs = {"$(tgpkg)", twkb_output}
   output = output_dir .. base .. "_roundtrip" .. suffix .. "_twkb_p" .. minprecxy .. ".gpkg"
   cmd = '^s^ $(tgpkg) ' ..
-  ' -table ' .. base ..
+  ' -table ' .. table_from_base(base) ..
   ' -minprecxy ' .. minprecxy ..
   ' -o ' .. output ..
   ' decompress ' .. twkb_output

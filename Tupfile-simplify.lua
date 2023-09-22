@@ -1,3 +1,5 @@
+tup.include("Tupfile-consts.lua")
+
 files = tup.glob("data/*_makevalid.gpkg")
 output_dir = "data/"
 min_level = 3
@@ -21,7 +23,7 @@ for i = 1, #files do
     output = output_dir .. base .. "_s" .. j .. ".gpkg"
     cmd =
       '^s^ $(simplify) ' ..
-      ' -table ' .. base ..
+      ' -table ' .. table_from_base(base) ..
       ' -levels ' .. levels ..
       ' -minpoints $(simplify_minpoints) ' ..
       ' -o ' .. output ..

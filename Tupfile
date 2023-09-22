@@ -1,4 +1,5 @@
 NATURAL_EARTH_URL=https://raw.githubusercontent.com/nvkelso/natural-earth-vector/117488dc884bad03366ff727eca013e434615127/geojson
+GEOBOUNDARIES_URL=https://github.com/wmgeolab/geoBoundaries/raw/742b9ae7d6a57e57fe6d47f29343bc1081a8f09d/releaseData
 
 # Convert any GDAL supported format to a valid GeoPackage gpkg file
 !makevalid = |> cat %f | docker run --rm -i -w / ghcr.io/osgeo/gdal:alpine-normal-3.7.1 sh -c "cp /dev/stdin %b && ogr2ogr -makevalid -f "GPKG" out.gpkg %b && cat out.gpkg" > %o |> %B_makevalid.gpkg
@@ -23,13 +24,16 @@ simplify=simplify$(EXE)
 tgpkg=tgpkg$(EXE)
 : |> go build ./cmd/tgpkg |> $(tgpkg) ^.*/go-build/.*
 
-# Download Natural Earth datasets
-: |> curl $(NATURAL_EARTH_URL)/ne_110m_admin_0_countries.geojson -o %o |> data/ne_110m_admin_0_countries.geojson
-# : |> curl $(NATURAL_EARTH_URL)/ne_10m_admin_0_countries.geojson -o %o |> data/ne_10m_admin_0_countries.geojson
-# : |> curl $(NATURAL_EARTH_URL)/ne_10m_urban_areas_landscan.geojson -o %o |> data/ne_10m_urban_areas_landscan.geojson
+# Download datasets
+: |> curl -L $(NATURAL_EARTH_URL)/ne_110m_admin_0_countries.geojson -o %o |> data/ne_110m_admin_0_countries.geojson
+# : |> curl -L $(NATURAL_EARTH_URL)/ne_10m_admin_0_countries.geojson -o %o |> data/ne_10m_admin_0_countries.geojson
+# : |> curl -L $(NATURAL_EARTH_URL)/ne_10m_urban_areas_landscan.geojson -o %o |> data/ne_10m_urban_areas_landscan.geojson
+# : |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM2.gpkg -o %o |> data/geoBoundariesCGAZ_ADM2.gpkg
+# : |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM0.gpkg -o %o |> data/geoBoundariesCGAZ_ADM0.gpkg
 
-# Convert to GeoPackage
+# Convert to "valid" GeoPackages
 : foreach data/ne_*.geojson |> !makevalid |> data/%B_makevalid.gpkg
+: foreach data/geoBoundariesCGAZ_ADM?.gpkg |> !makevalid |> data/%B_makevalid.gpkg
 
 # Build simplified versions
 simplify_minpoints=20
@@ -40,3 +44,8 @@ include Tupfile-compress.lua
 
 # Build preview images
 include Tupfile-preview.lua
+
+# Build docgen tool (generate readme)
+docgen=docgen$(EXE)
+: |> go build ./cmd/docgen |> $(docgen) ^.*/go-build/.*
+: $(docgen) data cmd/docgen/README.tmpl.md |> ./$(docgen) |> README.md

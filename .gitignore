@@ -5,4 +5,5 @@ data/*.tmp-shm
 data/*.tmp-wal
 simplify*
 tgpkg*
+docgen*
 .tup

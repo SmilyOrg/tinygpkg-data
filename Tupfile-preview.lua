@@ -1,13 +1,9 @@
+tup.include("Tupfile-consts.lua")
+
 files = tup.glob("data/*_roundtrip_*.gpkg")
 output_dir = "data/"
 
-function gdal(cmd)
-  return 'docker run --rm -i' ..
-  ' -w / ghcr.io/osgeo/gdal:alpine-normal-3.7.1 ' ..
-  cmd
-end
-
-places = {
+regions = {
   {"world", 0, 0, 0},
   {"europe", 3, 49, 9.6},
   {"africa", 2, 6, 19},
@@ -15,18 +11,25 @@ places = {
   {"japan", 5, 35, 130},
 }
 
+cities = {
+  {"world", 0, 0, 0},
+  {"berlin", 9, 52.44504, 13.40973},
+  {"nyc", 9, 40.76828, -73.88639},
+  {"tokyo", 8, 35.7295, 139.70422},
+  {"ljubljana", 10, 46.09049, 14.54004},
+}
 
-for i = 1, #files do
-  input = files[i]
-  filename = tup.file(input)
-  fullbase = tup.base(input)
-  input = output_dir .. filename
-  base = fullbase:sub(1, -22)
+function gdal(cmd)
+  return 'docker run --rm -i' ..
+  ' -w / ghcr.io/osgeo/gdal:alpine-normal-3.7.1 ' ..
+  cmd
+end
 
+function previews(input, table, places)
   w, h = 1024, 1024
   multisample = 1
   mw, mh = w * multisample, h * multisample
-  
+
   for i = 1, #places do
     local place = places[i]
     local name = place[1]
@@ -57,7 +60,7 @@ for i = 1, #files do
       ' -ot Byte ' ..
       ' -ts ' .. mw .. ' ' .. mh .. ' ' ..
       ' -te ' .. xmin .. ' ' .. ymin .. ' ' .. xmax .. ' ' .. ymax .. ' ' ..
-      ' -l ' .. base .. ' ' ..
+      ' -l ' .. table .. ' ' ..
       ' input.gpkg ' ..
       ' /vsistdout/ | ' ..
       'gdal_translate ' ..
@@ -74,4 +77,19 @@ for i = 1, #files do
 
     tup.rule(input, cmd, outputpng)
   end
+end
+
+for i = 1, #files do
+  input = files[i]
+  filename = tup.file(input)
+  fullbase = tup.base(input)
+  input = output_dir .. filename
+  base = fullbase:sub(1, -22)
+
+  places = regions
+  if base:find("urban") then
+    places = cities
+  end
+  
+  previews(input, table_from_base(base), places)
 end
