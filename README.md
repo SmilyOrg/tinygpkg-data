@@ -74,8 +74,8 @@ These are some selected useful variants of the datasets. See
 
 | Description                             | File                                                       | Size (vs. _source_) | Gzipped size (vs. _source_) |
 | --------------------------------------- | -------------------------------------------------------------- | ---- | -------------- |
-| **Country borders, tiny** | [📥 ne_110m_admin_0_countries_s4_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_twkb_p3.gpkg) | **393 KB** <br> _46.9% of 838 KB_ | 96 KB <br> _51.4% of 186 KB_ |
-| **Country borders, compatible** | [📥 ne_110m_admin_0_countries_s4_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_wkb.gpkg) | **520 KB** <br> _62.0% of 838 KB_ | 166 KB <br> _88.9% of 186 KB_ |
+| **Country borders, tiny** | [📥&nbsp;ne_110m_admin_0_countries_s4_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_twkb_p3.gpkg) | **393 KB** <br> _46.9% of 838 KB_ | 96 KB <br> _51.4% of 186 KB_ |
+| **Country borders, compatible** | [📥&nbsp;ne_110m_admin_0_countries_s4_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_wkb.gpkg) | **520 KB** <br> _62.0% of 838 KB_ | 166 KB <br> _88.9% of 186 KB_ |
 
 ## Parameters
 

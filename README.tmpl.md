@@ -78,9 +78,9 @@ These are some selected useful variants of the datasets. See
 | Description                             | File                                                       | Size (vs. _source_) | Gzipped size (vs. _source_) |
 | --------------------------------------- | -------------------------------------------------------------- | ---- | -------------- |
 {{ $n := "ne_110m_admin_0_countries_s4_twkb_p3" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
-| **Country borders, tiny** | [📥 {{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
+| **Country borders, tiny** | [📥&nbsp;{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
 {{ $n := "ne_110m_admin_0_countries_s4_wkb" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
-| **Country borders, compatible** | [📥 {{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
+| **Country borders, compatible** | [📥&nbsp;{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
 
 ## Parameters
 
