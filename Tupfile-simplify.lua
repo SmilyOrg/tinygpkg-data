@@ -20,7 +20,7 @@ for i = 1, #files do
   for j = min_level, max_level do
     inputs = {"$(simplify)", input}
     levels = generate_levels(j, 8)
-    output = output_dir .. base .. "_s" .. j .. ".gpkg"
+    output = output_dir .. base .. "_s" .. j .. "_wkb.gpkg"
     cmd =
       '^s^ $(simplify) ' ..
       ' -table ' .. table_from_base(base) ..

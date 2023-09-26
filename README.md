@@ -1,20 +1,56 @@
 <!-- Generated from README.tmpl.md DO NOT EDIT -->
 
-# Tiny GeoPackage
 
-This repository contains a set of scripts and tools for generating compressed GeoPackage files from various open data sources.
+<br />
+<p align="center">
+  <a href="https://github.com/SmilyOrg/tinygpkg-data">
+    <img src="assets/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">tinygpkg-data</h3>
+
+  <p align="center">
+    Small, <a href="https://github.com/TWKB/Specification/blob/master/twkb.md">TWKB</a> compressed, and simplified <a href="http://www.geopackage.org/">GeoPackage</a> datasets to be used with <a href="https://github.com/SmilyOrg/tinygpkg-data/">tinygpkg</a>.
+    <br />
+    <br />
+    <a href="https://github.com/SmilyOrg/tinygpkg-data/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/SmilyOrg/tinygpkg-data/issues">Request Feature</a>
+  </p>
+</p>
+
+
+
+
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about">About</a></li>
+    <li><a href="#datasets">Datasets</a></li>
+    <li><a href="#parameters">Parameters</a></li>
+    <li><a href="#variants">Variants</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
+
+
+## About
+
+This repository contains a set of scripts and tools for generating [Tiny
+Well-known Binary (TWKB)] compressed [GeoPackage] files from various open data
+sources. Check out [Featured Variants](#featured-variants) or [releases] to
+download the data or keep reading for more details and comparisons.
+
+[releases]: https://github.com/SmilyOrg/tinygpkg-data/releases
 
 ## Datasets
-
-
 
 | Name                          | Contents                                | Features | Source          | License                            |
 | ----------------------------- | --------------------------------------- | -------: | --------------- | ---------------------------------- |
 | [ne_110m_admin_0_countries]   | Country borders, 1:110m scale           |      177 | [Natural Earth] | [Public Domain][ne-license]        |
-| [ne_10m_admin_0_countries]    | Country borders, 1:10m scale            |      258 | [Natural Earth] | [Public Domain][ne-license]        |
-| [ne_10m_urban_areas_landscan] | Big cities only, 1:10m scale            |     6018 | [Natural Earth] | [Public Domain][ne-license]        |
-| [geoBoundariesCGAZ_ADM0]      | Country-level administrative boundaries |      200 | [geoBoundaries] | [Attribution required][gb-license] |
-| [geoBoundariesCGAZ_ADM2]      | City-level administrative boundaries    |    49689 | [geoBoundaries] | [Attribution required][gb-license] |
 
 
 [ne_110m_admin_0_countries]: #ne_110m_admin_0_countries
@@ -23,16 +59,31 @@ This repository contains a set of scripts and tools for generating compressed Ge
 [geoBoundariesCGAZ_ADM0]: #geoboundariescgaz_adm0
 [geoBoundariesCGAZ_ADM2]: #geoboundariescgaz_adm2
 
-
-
 [Natural Earth]: https://www.naturalearthdata.com/
 [geoBoundaries]: https://www.geoboundaries.org
 [ne-license]: https://www.naturalearthdata.com/about/terms-of-use/
 [gb-license]: https://www.geoboundaries.org/index.html#citation
 
+## Featured Variants
+
+These are some selected useful variants of the datasets. See
+[Variants](#variants) for the full list.
+
+
+
+| Description                             | Download                                                       | Size & _source size_ | Size & _source size_ (gzipped) |
+| --------------------------------------- | -------------------------------------------------------------- | ---- | -------------- |
+| **Country borders, tiny** | [ne_110m_admin_0_countries_s4_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_twkb_p3.gpkg) | **393 KB** _838 KB_ | 96 KB _186 KB_ |
+| **Country borders, compatible** | [ne_110m_admin_0_countries_s4](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4.gpkg) | **❓** _838 KB_ | ❓ (open) _186 KB_ |
+
 ## Parameters
 
-Source datasets are compressed using two methods, simplification and [Tiny
+The `makevalid` variant is the original source file converted to [GeoPackage]
+format using [ogr2ogr] with the `-makevalid` flag. This ensures a consistent
+intermediary format with valid geometry that is then further simplified and
+compressed.
+
+Source datasets are minified using two methods, simplification and [Tiny
 Well-known Binary (TWKB)][TWKB] compression.
 
 Simplification is performed using the Ramer-Douglas-Peucker [Simplify] method on
@@ -45,43 +96,84 @@ using [TWKB]. From empirical testing, less than 3 decimal places does not save a
 lot of space and more than 3 decimal places does not gain a lot in precision for
 these datasets.
 
-| Name | Simplify | Min. Points | Precision |
-| --- | --- | --- | --- |
-
+The `wkb` variants are only simplified and not compressed, keeping the original
+Well-known Binary (WKB) format. This increases compatibility with other tools at
+the cost of larger file size.
 
 | Name       | Simplify | Min. Points | Precision |
 | ---------- | -------- | ----------- | --------- |
+| makevalid  | none     | n/a         | full      |
 | s3_twkb_p3 | 1        | 20          | 3         |
 | s4_twkb_p3 | 0.1      | 20          | 3         |
 | s5_twkb_p3 | 0.01     | 20          | 3         |
 | s6_twkb_p3 | 0.001    | 20          | 3         |
 | s7_twkb_p3 | 0.0001   | 20          | 3         |
 | s8_twkb_p3 | 0.00001  | 20          | 3         |
+| s3_wkb     | 1        | 20          | full      |
+| s4_wkb     | 0.1      | 20          | full      |
+| s5_wkb     | 0.01     | 20          | full      |
+| s6_wkb     | 0.001    | 20          | full      |
+| s7_wkb     | 0.0001   | 20          | full      |
+| s8_wkb     | 0.00001  | 20          | full      |
 
 [TWKB]: https://github.com/TWKB/Specification/blob/master/twkb.md
 [Simplify]: https://pkg.go.dev/github.com/peterstace/simplefeatures/geom#Geometry.Simplify
+[ogr2ogr]: https://gdal.org/programs/ogr2ogr.html
 
 ## Variants
 
-See [Parameters](#parameters) for details on the parameters used for each variant.
-
-
-
-
-
+These are the variants of the datasets available. Each variant is a combination of the parameters described above.
 
 ### ne_110m_admin_0_countries
+
+Country borders, 1:110m scale sourced from [Natural Earth] ([Public Domain][ne-license]).
 
 See [Parameters](#parameters) for what each variant means and
 [Datasets](#datasets) for details on the dataset itself.
 
-| Variant | Size |  europe |  africa |  usa |  japan |  world | 
+| Variant | Size |  world |  europe |  africa |  usa |  japan | 
 | --- | --- |  --- |  --- |  --- |  --- |  --- | 
-| [s3_twkb_p3](data/ne_110m_admin_0_countries_s3_twkb_p3.gpkg) | 352 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_world.png" alt="ne_110m_admin_0_countries s3_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s3_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s3_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s3_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s3_twkb_p3 japan"></a> |
-| [s4_twkb_p3](data/ne_110m_admin_0_countries_s4_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_world.png" alt="ne_110m_admin_0_countries s4_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s4_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s4_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s4_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s4_twkb_p3 japan"></a> |
-| [s5_twkb_p3](data/ne_110m_admin_0_countries_s5_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_world.png" alt="ne_110m_admin_0_countries s5_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s5_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s5_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s5_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s5_twkb_p3 japan"></a> |
-| [s6_twkb_p3](data/ne_110m_admin_0_countries_s6_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_world.png" alt="ne_110m_admin_0_countries s6_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s6_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s6_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s6_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s6_twkb_p3 japan"></a> |
-| [s7_twkb_p3](data/ne_110m_admin_0_countries_s7_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_world.png" alt="ne_110m_admin_0_countries s7_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s7_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s7_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s7_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s7_twkb_p3 japan"></a> |
-| [s8_twkb_p3](data/ne_110m_admin_0_countries_s8_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_world.png" alt="ne_110m_admin_0_countries s8_twkb_p3 world"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_europe.png" alt="ne_110m_admin_0_countries s8_twkb_p3 europe"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_africa.png" alt="ne_110m_admin_0_countries s8_twkb_p3 africa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_usa.png" alt="ne_110m_admin_0_countries s8_twkb_p3 usa"></a> |<a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_japan.png" alt="ne_110m_admin_0_countries s8_twkb_p3 japan"></a> |
+| [makevalid](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_makevalid.gpkg) | 569 KB | <a href="data/ne_110m_admin_0_countries_makevalid_world.png"><img src="data/ne_110m_admin_0_countries_makevalid_world.png"></a> | <a href="data/ne_110m_admin_0_countries_makevalid_europe.png"><img src="data/ne_110m_admin_0_countries_makevalid_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_makevalid_africa.png"><img src="data/ne_110m_admin_0_countries_makevalid_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_makevalid_usa.png"><img src="data/ne_110m_admin_0_countries_makevalid_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_makevalid_japan.png"><img src="data/ne_110m_admin_0_countries_makevalid_japan.png"></a> | 
+| [s3_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s3_twkb_p3.gpkg) | 352 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s3_twkb_p3_japan.png"></a> | 
+| [s4_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s4_twkb_p3_japan.png"></a> | 
+| [s5_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s5_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s5_twkb_p3_japan.png"></a> | 
+| [s6_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s6_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s6_twkb_p3_japan.png"></a> | 
+| [s7_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s7_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s7_twkb_p3_japan.png"></a> | 
+| [s8_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s8_twkb_p3.gpkg) | 393 KB | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_world.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_world.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_europe.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_africa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_usa.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_japan.png"><img src="data/ne_110m_admin_0_countries_roundtrip_s8_twkb_p3_japan.png"></a> | 
+| [s3_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s3_wkb.gpkg) | 409 KB | <a href="data/ne_110m_admin_0_countries_s3_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s3_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s3_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s3_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s3_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s3_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s3_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s3_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s3_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s3_wkb_japan.png"></a> | 
+| [s4_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s4_wkb.gpkg) | 520 KB | <a href="data/ne_110m_admin_0_countries_s4_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s4_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s4_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s4_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s4_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s4_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s4_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s4_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s4_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s4_wkb_japan.png"></a> | 
+| [s5_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s5_wkb.gpkg) | 557 KB | <a href="data/ne_110m_admin_0_countries_s5_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s5_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s5_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s5_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s5_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s5_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s5_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s5_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s5_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s5_wkb_japan.png"></a> | 
+| [s6_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s6_wkb.gpkg) | 557 KB | <a href="data/ne_110m_admin_0_countries_s6_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s6_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s6_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s6_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s6_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s6_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s6_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s6_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s6_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s6_wkb_japan.png"></a> | 
+| [s7_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s7_wkb.gpkg) | 557 KB | <a href="data/ne_110m_admin_0_countries_s7_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s7_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s7_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s7_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s7_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s7_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s7_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s7_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s7_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s7_wkb_japan.png"></a> | 
+| [s8_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.1.0/ne_110m_admin_0_countries_s8_wkb.gpkg) | 557 KB | <a href="data/ne_110m_admin_0_countries_s8_wkb_world.png"><img src="data/ne_110m_admin_0_countries_s8_wkb_world.png"></a> | <a href="data/ne_110m_admin_0_countries_s8_wkb_europe.png"><img src="data/ne_110m_admin_0_countries_s8_wkb_europe.png"></a> | <a href="data/ne_110m_admin_0_countries_s8_wkb_africa.png"><img src="data/ne_110m_admin_0_countries_s8_wkb_africa.png"></a> | <a href="data/ne_110m_admin_0_countries_s8_wkb_usa.png"><img src="data/ne_110m_admin_0_countries_s8_wkb_usa.png"></a> | <a href="data/ne_110m_admin_0_countries_s8_wkb_japan.png"><img src="data/ne_110m_admin_0_countries_s8_wkb_japan.png"></a> | 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to
+discuss what you would like to change.
+
+## License
+
+Code and tools distributed under the MIT License. The license of the datasets follows the license of the sources used to generate them. See [LICENSE.md](LICENSE.md) for more information.
+
+## Acknowledgements
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+* [readme.so](https://readme.so/)
+
+[Tiny Well-known Binary (TWKB)]: https://github.com/TWKB/Specification/blob/master/twkb.md
+[GeoPackage]: http://www.geopackage.org/

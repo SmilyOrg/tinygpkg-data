@@ -1,6 +1,5 @@
 tup.include("Tupfile-consts.lua")
 
-files = tup.glob("data/*_roundtrip_*.gpkg")
 output_dir = "data/"
 
 regions = {
@@ -79,12 +78,45 @@ function previews(input, table, places)
   end
 end
 
+files = tup.glob("data/*_makevalid.gpkg")
+for i = 1, #files do
+  input = files[i]
+  filename = tup.file(input)
+  fullbase = tup.base(input)
+  input = output_dir .. filename
+  base = fullbase:sub(1, -11)
+
+  places = regions
+  if base:find("urban") then
+    places = cities
+  end
+  
+  previews(input, table_from_base(base), places)
+end
+
+files = tup.glob("data/*_roundtrip_*.gpkg")
 for i = 1, #files do
   input = files[i]
   filename = tup.file(input)
   fullbase = tup.base(input)
   input = output_dir .. filename
   base = fullbase:sub(1, -22)
+
+  places = regions
+  if base:find("urban") then
+    places = cities
+  end
+  
+  previews(input, table_from_base(base), places)
+end
+
+files = tup.glob("data/*_s?_wkb.gpkg")
+for i = 1, #files do
+  input = files[i]
+  filename = tup.file(input)
+  fullbase = tup.base(input)
+  input = output_dir .. filename
+  base = fullbase:sub(1, -8)
 
   places = regions
   if base:find("urban") then

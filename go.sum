@@ -11,6 +11,8 @@ github.com/peterstace/simplefeatures v0.44.0/go.mod h1:ub+e2WFVeYzriHxqjmSzW5yqp
 github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94icq4NjY3clb7Lk8O1qJ8BdBEF8z0ibU0rE=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
+github.com/smilyorg/tinygpkg v0.0.0-20230924142632-d38939ad2f9b h1:a5GBVkID9imcIKppp8R1Qgfqo3tVNsoda7yAwXFYT6s=
+github.com/smilyorg/tinygpkg v0.0.0-20230924142632-d38939ad2f9b/go.mod h1:nDvVmk7GEET7pDdkAAtFXq7RBFCoOzw/nW0xFgqbqAY=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.12.0 h1:CM0HF96J0hcLAwsHPJZjfdNzs0gftsLfgKt57wWHJ0o=
 golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
