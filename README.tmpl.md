@@ -25,6 +25,7 @@
   <ol>
     <li><a href="#about">About</a></li>
     <li><a href="#datasets">Datasets</a></li>
+    <li><a href="#featured-variants">Featured Variants</a></li>
     <li><a href="#parameters">Parameters</a></li>
     <li><a href="#variants">Variants</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -74,12 +75,12 @@ These are some selected useful variants of the datasets. See
 [{{.}}]({{ gpkg . | download }}) | **{{ gpkg . | local | filesize }}**
 {{- end}}
 
-| Description                             | Download                                                       | Size & _source size_ | Size & _source size_ (gzipped) |
+| Description                             | File                                                       | Size (vs. _source_) | Gzipped size (vs. _source_) |
 | --------------------------------------- | -------------------------------------------------------------- | ---- | -------------- |
-{{ $n := "ne_110m_admin_0_countries_s4_twkb_p3" -}}
-| **Country borders, tiny** | [{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize }}** _{{ local "ne_110m_admin_0_countries.geojson" | filesize }}_ | {{ $n | gpkg | local | gzipfilesize }} _{{ local "ne_110m_admin_0_countries.geojson" | gzipfilesize }}_ |
-{{ $n := "ne_110m_admin_0_countries_s4" -}}
-| **Country borders, compatible** | [{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize }}** _{{ local "ne_110m_admin_0_countries.geojson" | filesize }}_ | {{ $n | gpkg | local | gzipfilesize }} _{{ local "ne_110m_admin_0_countries.geojson" | gzipfilesize }}_ |
+{{ $n := "ne_110m_admin_0_countries_s4_twkb_p3" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
+| **Country borders, tiny** | [📥 {{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
+{{ $n := "ne_110m_admin_0_countries_s4_wkb" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
+| **Country borders, compatible** | [📥 {{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
 
 ## Parameters
 
@@ -130,7 +131,7 @@ the cost of larger file size.
 These are the variants of the datasets available. Each variant is a combination of the parameters described above.
 
 {{define "variants" -}}
-{{range .}}{{$variant := .}}| [{{.Name}}]({{ .Fullname | gpkg | download }}) | {{ .Fullname | gpkg | local | filesize }} | {{range .Previews}}<a href="{{ .Path }}"><img src="{{ .Path }}"></a> | {{end}}
+{{range .}}{{$variant := .}}| [📥&nbsp;{{.Name}}]({{ .Fullname | gpkg | download }}) | {{ .Fullname | gpkg | local | filesize | kb }} | {{range .Previews}}<a href="{{ .Path }}"><img src="{{ .Path }}"></a> | {{end}}
 {{end -}}
 {{end -}}
 
