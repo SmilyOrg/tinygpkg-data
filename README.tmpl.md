@@ -50,10 +50,10 @@ download the data or keep reading for more details and comparisons.
 | Name                          | Contents                                | Features | Source          | License                            |
 | ----------------------------- | --------------------------------------- | -------: | --------------- | ---------------------------------- |
 | [ne_110m_admin_0_countries]   | Country borders, 1:110m scale           |      177 | [Natural Earth] | [Public Domain][ne-license]        |
-<!-- | [ne_10m_admin_0_countries]    | Country borders, 1:10m scale            |      258 | [Natural Earth] | [Public Domain][ne-license]        |
+| [ne_10m_admin_0_countries]    | Country borders, 1:10m scale            |      258 | [Natural Earth] | [Public Domain][ne-license]        |
 | [ne_10m_urban_areas_landscan] | Big cities only, 1:10m scale            |     6018 | [Natural Earth] | [Public Domain][ne-license]        |
-| [geoBoundariesCGAZ_ADM0]      | Country-level administrative boundaries |      200 | [geoBoundaries] | [Attribution required][gb-license] |
-| [geoBoundariesCGAZ_ADM2]      | City-level administrative boundaries    |    49689 | [geoBoundaries] | [Attribution required][gb-license] | -->
+<!-- | [geoBoundariesCGAZ_ADM0]      | Country-level administrative boundaries |      200 | [geoBoundaries] | [Attribution required][gb-license] | -->
+<!-- | [geoBoundariesCGAZ_ADM2]      | City-level administrative boundaries    |    49689 | [geoBoundaries] | [Attribution required][gb-license] | -->
 
 [ne_110m_admin_0_countries]: #ne_110m_admin_0_countries
 [ne_10m_admin_0_countries]: #ne_10m_admin_0_countries
@@ -72,15 +72,22 @@ These are some selected useful variants of the datasets. See
 [Variants](#variants) for the full list.
 
 {{define "featured" -}}
-[{{.}}]({{ gpkg . | download }}) | **{{ gpkg . | local | filesize }}**
-{{- end}}
+{{$n := .Name -}}
+{{$s := .Source -}}
+{{$d := .Desc -}}
+| [📥&nbsp;{{$n}}]({{ gpkg $n | download }}) | {{ $d }} | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
+{{- end -}}
 
-| Description                             | File                                                       | Size (vs. _source_) | Gzipped size (vs. _source_) |
-| --------------------------------------- | -------------------------------------------------------------- | ---- | -------------- |
-{{ $n := "ne_110m_admin_0_countries_s4_twkb_p3" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
-| **Country borders, tiny** | [📥&nbsp;{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
-{{ $n := "ne_110m_admin_0_countries_s4_wkb" -}}{{ $s := "ne_110m_admin_0_countries.geojson" -}}
-| **Country borders, compatible** | [📥&nbsp;{{$n}}]({{ gpkg $n | download }}) | **{{ $n | gpkg | local | filesize | kb }}** <br> _{{ percent ($n | gpkg | local | filesize) (local $s | filesize) }} of {{ local $s | filesize | kb }}_ | {{ $n | gpkg | local | gzipfilesize | kb }} <br> _{{ percent ($n | gpkg | local | gzipfilesize) (local $s | gzipfilesize) }} of {{ local $s | gzipfilesize | kb }}_ |
+| File | Description | Size (vs. _source_) | Gzipped size (vs. _source_) |
+| ---- | ----------- | ------------------- | --------------------------- |
+| **Tiny (TWKB)** ||||
+{{ template "featured" featured "ne_110m_admin_0_countries_s4_twkb_p3" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
+{{ template "featured" featured "ne_10m_admin_0_countries_s4_twkb_p3" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
+{{ template "featured" featured "ne_10m_urban_areas_landscan_s4_twkb_p3" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
+| **Compatible (WKB)** ||||
+{{ template "featured" featured "ne_110m_admin_0_countries_s4_wkb" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
+{{ template "featured" featured "ne_10m_admin_0_countries_s4_wkb" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
+{{ template "featured" featured "ne_10m_urban_areas_landscan_s4_wkb" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
 
 ## Parameters
 
@@ -155,7 +162,7 @@ See [Parameters](#parameters) for what each variant means and
 
 
 
-<!-- ### ne_10m_admin_0_countries
+### ne_10m_admin_0_countries
 
 Country borders, 1:10m scale sourced from [Natural Earth] ([Public Domain][ne-license]).
 
@@ -181,7 +188,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "ne_10m_urban_areas_landscan" -}}
 {{template "variants" variants $name "_makevalid" .SmallPlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .SmallPlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .SmallPlaces ""}} -->
+{{template "variants" variants $name "_s?" .SmallPlaces ""}}
 
 
 
