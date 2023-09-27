@@ -6,4 +6,5 @@ data/*.tmp-wal
 simplify*
 tgpkg*
 docgen*
+!cmd/**
 .tup
