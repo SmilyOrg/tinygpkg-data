@@ -81,13 +81,13 @@ These are some selected useful variants of the datasets. See
 | File | Description | Size (vs. _source_) | Gzipped size (vs. _source_) |
 | ---- | ----------- | ------------------- | --------------------------- |
 | **Tiny (TWKB)** ||||
-{{ template "featured" featured "ne_110m_admin_0_countries_s4_twkb_p3" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
+{{ template "featured" featured "ne_110m_admin_0_countries_s5_twkb_p3" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
 {{ template "featured" featured "ne_10m_admin_0_countries_s4_twkb_p3" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
-{{ template "featured" featured "ne_10m_urban_areas_landscan_s4_twkb_p3" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
+{{ template "featured" featured "ne_10m_urban_areas_landscan_s5_twkb_p3" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
 | **Compatible (WKB)** ||||
-{{ template "featured" featured "ne_110m_admin_0_countries_s4_wkb" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
+{{ template "featured" featured "ne_110m_admin_0_countries_s5_wkb" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
 {{ template "featured" featured "ne_10m_admin_0_countries_s4_wkb" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
-{{ template "featured" featured "ne_10m_urban_areas_landscan_s4_wkb" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
+{{ template "featured" featured "ne_10m_urban_areas_landscan_s5_wkb" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
 
 ## Parameters
 
@@ -173,7 +173,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "ne_10m_admin_0_countries" -}}
 {{template "variants" variants $name "_makevalid" .LargePlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .LargePlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .LargePlaces ""}}
+{{template "variants" variants $name "_s?_wkb" .LargePlaces ""}}
 
 
 
@@ -188,7 +188,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "ne_10m_urban_areas_landscan" -}}
 {{template "variants" variants $name "_makevalid" .SmallPlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .SmallPlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .SmallPlaces ""}}
+{{template "variants" variants $name "_s?_wkb" .SmallPlaces ""}}
 
 
 
