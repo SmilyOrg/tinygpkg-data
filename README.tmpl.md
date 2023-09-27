@@ -8,7 +8,7 @@
   <h3 align="center">tinygpkg-data</h3>
 
   <p align="center">
-    Small, <a href="https://github.com/TWKB/Specification/blob/master/twkb.md">TWKB</a> compressed, and simplified <a href="http://www.geopackage.org/">GeoPackage</a> datasets to be used with <a href="https://github.com/SmilyOrg/tinygpkg-data/">tinygpkg</a>.
+    Small, <a href="https://github.com/TWKB/Specification/blob/master/twkb.md">TWKB</a> compressed, and simplified <a href="http://www.geopackage.org/">GeoPackage</a> datasets to be used with <a href="https://github.com/SmilyOrg/tinygpkg/">tinygpkg</a>.
     <br />
     <br />
     <a href="https://github.com/SmilyOrg/tinygpkg-data/issues">Report Bug</a>
