@@ -79,10 +79,12 @@ These are some selected useful variants of the datasets. See
 | [📥&nbsp;ne_110m_admin_0_countries_s5_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_110m_admin_0_countries_s5_twkb_p3.gpkg) | 117 country borders | **393 KB** <br> _46.9% of 838 KB_ | 116 KB <br> _56.0% of 208 KB_ |
 | [📥&nbsp;ne_10m_admin_0_countries_s4_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_10m_admin_0_countries_s4_twkb_p3.gpkg) | 258 country borders | **1249 KB** <br> _9.4% of 13287 KB_ | 782 KB <br> _17.0% of 4614 KB_ |
 | [📥&nbsp;ne_10m_urban_areas_landscan_s5_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_10m_urban_areas_landscan_s5_twkb_p3.gpkg) | 6018 city borders | **4333 KB** <br> _7.5% of 57682 KB_ | 1780 KB <br> _22.0% of 8078 KB_ |
+| [📥&nbsp;geoBoundariesCGAZ_ADM2_s5_twkb_p3](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/geoBoundariesCGAZ_ADM2_s5_twkb_p3.gpkg) | 49689 city borders | **16420 KB** <br> _6.0% of 272859 KB_ | 10782 KB <br> _6.4% of 168993 KB_ |
 | **Compatible (WKB)** ||||
 | [📥&nbsp;ne_110m_admin_0_countries_s5_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_110m_admin_0_countries_s5_wkb.gpkg) | 117 country borders | **557 KB** <br> _66.4% of 838 KB_ | 215 KB <br> _103.8% of 208 KB_ |
 | [📥&nbsp;ne_10m_admin_0_countries_s4_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_10m_admin_0_countries_s4_wkb.gpkg) | 258 country borders | **4997 KB** <br> _37.6% of 13287 KB_ | 2566 KB <br> _55.6% of 4614 KB_ |
 | [📥&nbsp;ne_10m_urban_areas_landscan_s5_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/ne_10m_urban_areas_landscan_s5_wkb.gpkg) | 6018 city borders | **21704 KB** <br> _37.6% of 57682 KB_ | 4663 KB <br> _57.7% of 8078 KB_ |
+| [📥&nbsp;geoBoundariesCGAZ_ADM2_s5_wkb](https://github.com/SmilyOrg/tinygpkg-data/releases/download/v0.2.0/geoBoundariesCGAZ_ADM2_s5_wkb.gpkg) | 49689 city borders | **52469 KB** <br> _19.2% of 272859 KB_ | 34726 KB <br> _20.5% of 168993 KB_ |
 
 ## Parameters
 

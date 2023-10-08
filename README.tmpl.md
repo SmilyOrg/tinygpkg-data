@@ -84,10 +84,12 @@ These are some selected useful variants of the datasets. See
 {{ template "featured" featured "ne_110m_admin_0_countries_s5_twkb_p3" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
 {{ template "featured" featured "ne_10m_admin_0_countries_s4_twkb_p3" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
 {{ template "featured" featured "ne_10m_urban_areas_landscan_s5_twkb_p3" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
+{{ template "featured" featured "geoBoundariesCGAZ_ADM2_s5_twkb_p3" "geoBoundariesCGAZ_ADM2.gpkg" "49689 city borders" }}
 | **Compatible (WKB)** ||||
 {{ template "featured" featured "ne_110m_admin_0_countries_s5_wkb" "ne_110m_admin_0_countries.geojson" "117 country borders" }}
 {{ template "featured" featured "ne_10m_admin_0_countries_s4_wkb" "ne_10m_admin_0_countries.geojson" "258 country borders" }}
 {{ template "featured" featured "ne_10m_urban_areas_landscan_s5_wkb" "ne_10m_urban_areas_landscan.geojson" "6018 city borders" }}
+{{ template "featured" featured "geoBoundariesCGAZ_ADM2_s5_wkb" "geoBoundariesCGAZ_ADM2.gpkg" "49689 city borders" }}
 
 ## Parameters
 
