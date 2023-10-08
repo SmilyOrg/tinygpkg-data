@@ -2,11 +2,11 @@ package main
 
 import (
 	"bytes"
-	"context"
 	_ "embed"
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os/exec"
 	"path/filepath"
 	"runtime"
@@ -119,24 +119,28 @@ func compressGeopackage(name, gpkgPath, tgpkgPath, table string, opts Opts) erro
 		return err
 	}
 	defer move()
-	pool, err := sqlitex.Open(tmp, 0, 2)
+
+	readc, err := sqlite.OpenConn(tmp, sqlite.OpenReadOnly|sqlite.OpenURI)
 	if err != nil {
 		return err
 	}
-	defer pool.Close()
-
-	readc := pool.Get(context.Background())
-	defer pool.Put(readc)
 
 	reads := readc.Prep(fmt.Sprintf(`
 		SELECT fid, geom
 		FROM %s`,
 		table,
 	))
-	defer reads.Reset()
 
-	writec := pool.Get(context.Background())
-	defer pool.Put(writec)
+	writec, err := sqlite.OpenConn(tmp, sqlite.OpenReadWrite|sqlite.OpenURI)
+	if err != nil {
+		return err
+	}
+	defer writec.Close()
+
+	err = sqlitex.Execute(writec, "PRAGMA journal_mode = WAL;", nil)
+	if err != nil {
+		return err
+	}
 
 	err = sqlitex.ExecuteScript(writec, fmt.Sprintf(`
 		INSERT OR IGNORE INTO gpkg_extensions VALUES ('%[1]s', 'geom', 'mlunar_twkb', 'https://github.com/SmilyOrg/tinygpkg', 'read-write');
@@ -203,15 +207,23 @@ func compressGeopackage(name, gpkgPath, tgpkgPath, table string, opts Opts) erro
 	close(writeChan)
 	wwg.Wait()
 
+	readc.Close()
+
 	err = sqlitex.Execute(writec, "COMMIT;", nil)
 	if err != nil {
 		return fmt.Errorf("unable to commit: %s", err.Error())
+	}
+
+	err = sqlitex.Execute(writec, "PRAGMA journal_mode = OFF;", nil)
+	if err != nil {
+		return err
 	}
 
 	err = sqlitex.Execute(writec, "VACUUM;", nil)
 	if err != nil {
 		return fmt.Errorf("unable to vacuum: %s", err.Error())
 	}
+
 	return nil
 }
 
@@ -255,24 +267,23 @@ func decompressGeopackage(name, tgpkgPath, gpkgPath, table string) error {
 		return err
 	}
 	defer move()
-	pool, err := sqlitex.Open(tmp, 0, 2)
+
+	readc, err := sqlite.OpenConn(tmp, sqlite.OpenReadOnly|sqlite.OpenURI)
 	if err != nil {
 		return err
 	}
-	defer pool.Close()
-
-	readc := pool.Get(context.Background())
-	defer pool.Put(readc)
 
 	reads := readc.Prep(fmt.Sprintf(`
 		SELECT fid, geom
 		FROM %s`,
 		table,
 	))
-	defer reads.Reset()
 
-	writec := pool.Get(context.Background())
-	defer pool.Put(writec)
+	writec, err := sqlite.OpenConn(tmp, sqlite.OpenReadWrite|sqlite.OpenURI)
+	if err != nil {
+		return err
+	}
+	defer writec.Close()
 
 	writes := writec.Prep(fmt.Sprintf(`
 		UPDATE %s
@@ -280,6 +291,11 @@ func decompressGeopackage(name, tgpkgPath, gpkgPath, table string) error {
 		WHERE fid = ?`,
 		table,
 	))
+
+	err = sqlitex.Execute(writec, "PRAGMA journal_mode = WAL;", nil)
+	if err != nil {
+		return err
+	}
 
 	sqlitex.Execute(writec, "BEGIN TRANSACTION;", nil)
 
@@ -349,6 +365,8 @@ func decompressGeopackage(name, tgpkgPath, gpkgPath, table string) error {
 		)
 	}
 
+	readc.Close()
+
 	sqlitex.Execute(writec, "COMMIT;", nil)
 
 	err = sqlitex.ExecuteScript(writec, fmt.Sprintf(`
@@ -359,6 +377,11 @@ func decompressGeopackage(name, tgpkgPath, gpkgPath, table string) error {
 	}
 
 	err = sqlitex.Execute(writec, "VACUUM;", nil)
+	if err != nil {
+		return err
+	}
+
+	err = sqlitex.Execute(writec, "PRAGMA journal_mode = OFF;", nil)
 	if err != nil {
 		return err
 	}
@@ -390,24 +413,21 @@ func main() {
 	flag.Parse()
 
 	if len(flag.Args()) < 2 {
-		fmt.Println("Error: command and input file name are required")
-		return
+		log.Fatalln("Error: command and input file name are required")
 	}
 
 	cmd := flag.Arg(0)
 	path := flag.Arg(1)
 
 	if *output == "" {
-		fmt.Println("Error: output file name is required")
-		return
+		log.Fatalln("Error: output file name is required")
 	}
 
 	basename := filepath.Base(*output)
 
 	tmp, move, err := tempCopy(path, *output)
 	if err != nil {
-		fmt.Println("Error: unable to copy file")
-		return
+		log.Fatalln("Error: unable to copy file")
 	}
 	defer move()
 
@@ -418,10 +438,14 @@ func main() {
 
 	switch cmd {
 	case "compress":
-		compressGeopackage(basename, path, tmp, *table, opts)
+		err = compressGeopackage(basename, path, tmp, *table, opts)
 	case "decompress":
-		decompressGeopackage(basename, path, tmp, *table)
+		err = decompressGeopackage(basename, path, tmp, *table)
 	default:
-		fmt.Println("Error: unknown command: " + cmd)
+		log.Fatalln("Error: unknown command: " + cmd)
+	}
+
+	if err != nil {
+		log.Fatalln("Error: " + err.Error())
 	}
 }

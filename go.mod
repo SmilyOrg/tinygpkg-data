@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/peterstace/simplefeatures v0.44.0
-	github.com/smilyorg/tinygpkg v0.0.0-20230924142632-d38939ad2f9b
+	github.com/smilyorg/tinygpkg v0.1.1-0.20231007142628-d4c65155ee55
 	zombiezen.com/go/sqlite v0.13.1
 )
 

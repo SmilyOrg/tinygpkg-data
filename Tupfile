@@ -29,8 +29,8 @@ tgpkg=tgpkg$(EXE)
 : |> curl -L $(NATURAL_EARTH_URL)/ne_110m_admin_0_countries.geojson -o %o |> data/ne_110m_admin_0_countries.geojson
 : |> curl -L $(NATURAL_EARTH_URL)/ne_10m_admin_0_countries.geojson -o %o |> data/ne_10m_admin_0_countries.geojson
 : |> curl -L $(NATURAL_EARTH_URL)/ne_10m_urban_areas_landscan.geojson -o %o |> data/ne_10m_urban_areas_landscan.geojson
-# : |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM2.gpkg -o %o |> data/geoBoundariesCGAZ_ADM2.gpkg
-# : |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM0.gpkg -o %o |> data/geoBoundariesCGAZ_ADM0.gpkg
+: |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM2.gpkg -o %o |> data/geoBoundariesCGAZ_ADM2.gpkg
+: |> curl -L $(GEOBOUNDARIES_URL)/CGAZ/geoBoundariesCGAZ_ADM0.gpkg -o %o |> data/geoBoundariesCGAZ_ADM0.gpkg
 
 # Convert to "valid" GeoPackages
 : foreach data/ne_*.geojson |> !makevalid |> data/%B_makevalid.gpkg
@@ -49,4 +49,4 @@ include Tupfile-preview.lua
 # Build docgen tool (generate readme)
 docgen=docgen$(EXE)
 : |> go build ./cmd/docgen |> $(docgen) ^.*/go-build/.*
-: $(docgen) data/*.gpkg data/*.geojson README.tmpl.md |> $(docgen) -template README.tmpl.md -download $(DOWNLOAD_URI) |> README.md
+: $(docgen) data/*.gpkg data/*.png data/*.geojson README.tmpl.md |> $(docgen) -template README.tmpl.md -download $(DOWNLOAD_URI) |> README.md
