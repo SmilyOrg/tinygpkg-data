@@ -203,7 +203,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "geoBoundariesCGAZ_ADM0" -}}
 {{template "variants" variants $name "_makevalid" .LargePlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .LargePlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .LargePlaces ""}}
+{{template "variants" variants $name "_s?_wkb" .LargePlaces ""}}
 
 
 
@@ -218,7 +218,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "geoBoundariesCGAZ_ADM2" -}}
 {{template "variants" variants $name "_makevalid" .LargePlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .LargePlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .LargePlaces ""}}
+{{template "variants" variants $name "_s?_wkb" .LargePlaces ""}}
 
 
 
