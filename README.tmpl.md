@@ -52,8 +52,8 @@ download the data or keep reading for more details and comparisons.
 | [ne_110m_admin_0_countries]   | Country borders, 1:110m scale           |      177 | [Natural Earth] | [Public Domain][ne-license]        |
 | [ne_10m_admin_0_countries]    | Country borders, 1:10m scale            |      258 | [Natural Earth] | [Public Domain][ne-license]        |
 | [ne_10m_urban_areas_landscan] | Big cities only, 1:10m scale            |     6018 | [Natural Earth] | [Public Domain][ne-license]        |
-<!-- | [geoBoundariesCGAZ_ADM0]      | Country-level administrative boundaries |      200 | [geoBoundaries] | [Attribution required][gb-license] | -->
-<!-- | [geoBoundariesCGAZ_ADM2]      | City-level administrative boundaries    |    49689 | [geoBoundaries] | [Attribution required][gb-license] | -->
+| [geoBoundariesCGAZ_ADM0]      | Country-level administrative boundaries |      200 | [geoBoundaries] | [Attribution required][gb-license] |
+| [geoBoundariesCGAZ_ADM2]      | City-level administrative boundaries    |    49689 | [geoBoundaries] | [Attribution required][gb-license] |
 
 [ne_110m_admin_0_countries]: #ne_110m_admin_0_countries
 [ne_10m_admin_0_countries]: #ne_10m_admin_0_countries
@@ -192,9 +192,9 @@ See [Parameters](#parameters) for what each variant means and
 
 
 
-<!-- ### geoBoundariesCGAZ_ADM0
+### geoBoundariesCGAZ_ADM0
 
-Country-level administrative boundaries sourced from [geoBoundaries]([Attribution required][gb-license]).
+Country-level administrative boundaries sourced from [geoBoundaries] ([Attribution required][gb-license]).
 
 See [Parameters](#parameters) for what each variant means and
 [Datasets](#datasets) for details on the dataset itself.
@@ -203,13 +203,13 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "geoBoundariesCGAZ_ADM0" -}}
 {{template "variants" variants $name "_makevalid" .LargePlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .LargePlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .LargePlaces ""}} -->
+{{template "variants" variants $name "_s?" .LargePlaces ""}}
 
 
 
-<!-- ### geoBoundariesCGAZ_ADM2
+### geoBoundariesCGAZ_ADM2
 
-City-level administrative boundaries sourced from [geoBoundaries]([Attribution required][gb-license]).
+City-level administrative boundaries sourced from [geoBoundaries] ([Attribution required][gb-license]).
 
 See [Parameters](#parameters) for what each variant means and
 [Datasets](#datasets) for details on the dataset itself.
@@ -218,7 +218,7 @@ See [Parameters](#parameters) for what each variant means and
 {{ $name := "geoBoundariesCGAZ_ADM2" -}}
 {{template "variants" variants $name "_makevalid" .LargePlaces "" -}}
 {{template "variants" variants $name "_s?_twkb_p?" .LargePlaces "roundtrip_" -}}
-{{template "variants" variants $name "_s?" .LargePlaces ""}} -->
+{{template "variants" variants $name "_s?" .LargePlaces ""}}
 
 
 
